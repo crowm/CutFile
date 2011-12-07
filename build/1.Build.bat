@@ -61,11 +61,6 @@ echo ################## Build-CutFile ##################
 	call :exec "%VS10PATH%\devenv.exe" "..\CutFile.sln" /rebuild "Release" /out devenv.log
 	if not %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
 
-    REM restore AssemblyInfo.cs to original (unaltered version number)
-    call :exec copy /Y ".\Temp\CutFileAssemblyInfo.cs" "..\Properties\AssemblyInfo.cs"
-	if not %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
-    
-
 :CreateBuildOutput
 
     if not exist "..\builds" mkdir "..\builds"
@@ -79,7 +74,17 @@ echo ################## Build-CutFile ##################
         del "..\builds\CutFile-%VERSION%\CutFile.vshost.exe"
     )
     
+:CreateSourceOutput
+    if exist "..\builds\CutFile-%VERSION%src" rmdir /S /Q "..\builds\CutFile-%VERSION%src"
+	if not %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
+
+	call :export ".." ".\Temp" "..\builds\CutFile-%VERSION%src"
+	if not %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
     
+    REM restore AssemblyInfo.cs to original (unaltered version number)
+    call :exec copy /Y ".\Temp\CutFileAssemblyInfo.cs" "..\Properties\AssemblyInfo.cs"
+	if not %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
+
 :end
 echo Build Successful
 time /T
@@ -111,3 +116,12 @@ echo _ %RETURNCODE%
 
 exit /B %RETURNCODE%
 
+:export
+if exist "%~f2\%~n1" rmdir /S /Q "%~f2\%~n1"
+if not %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
+
+call :exec "%TSVNPATH%\bin\TortoiseProc.exe" /command:dropexport /path:"%~f1" /droptarget:"%~f2"
+if not %ERRORLEVEL%==0 exit /B %ERRORLEVEL%
+
+move /Y "%~f2\%~n1" "%~f3"
+exit /B %ERRORLEVEL%
