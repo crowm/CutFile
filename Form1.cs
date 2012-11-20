@@ -31,10 +31,15 @@ namespace CutFile
                 bool setOutput = ((textBoxOutput.Text.Length == 0) || (textBoxOutput.Text == GetCutFilename(textBoxInput.Text)));
 
                 textBoxInput.Text = dialog.FileName;
-                if (setOutput)
-                    textBoxOutput.Text = GetCutFilename(textBoxInput.Text);
+                textBoxInput.SelectionStart = textBoxInput.Text.Length;
 
-                LoadFile(dialog.FileName);
+                if (setOutput)
+                {
+                    textBoxOutput.Text = GetCutFilename(textBoxInput.Text);
+                    textBoxOutput.SelectionStart = textBoxOutput.Text.Length;
+                }
+
+                LoadFile(textBoxInput.Text);
             }
         }
         private void textBoxInput_KeyDown(object sender, KeyEventArgs e)
@@ -44,7 +49,10 @@ namespace CutFile
                 bool setOutput = ((textBoxOutput.Text.Length == 0) || (textBoxOutput.Text == GetCutFilename(_fileName)));
 
                 if (setOutput)
+                {
                     textBoxOutput.Text = GetCutFilename(textBoxInput.Text);
+                    textBoxOutput.SelectionStart = textBoxOutput.Text.Length;
+                }
 
                 LoadFile(textBoxInput.Text);
             }
@@ -59,6 +67,7 @@ namespace CutFile
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 textBoxOutput.Text = dialog.FileName;
+                textBoxOutput.SelectionStart = textBoxOutput.Text.Length; 
                 LoadFile(dialog.FileName);
             }
         }
@@ -185,6 +194,22 @@ namespace CutFile
         private void buttonClose_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void textBoxInput_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Link;
+        }
+
+        private void textBoxInput_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = e.Data.GetData(DataFormats.FileDrop) as string[];
+            textBoxInput.Text = files[0];
+            textBoxInput.SelectionStart = textBoxInput.Text.Length;
+            textBoxOutput.Text = GetCutFilename(textBoxInput.Text);
+            textBoxOutput.SelectionStart = textBoxOutput.Text.Length;
+            LoadFile(textBoxInput.Text);
         }
 
     }

@@ -63,12 +63,15 @@
             // 
             // textBoxInput
             // 
-            this.textBoxInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxInput.AllowDrop = true;
+            this.textBoxInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxInput.Location = new System.Drawing.Point(15, 31);
             this.textBoxInput.Name = "textBoxInput";
             this.textBoxInput.Size = new System.Drawing.Size(402, 20);
             this.textBoxInput.TabIndex = 2;
+            this.textBoxInput.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxInput_DragDrop);
+            this.textBoxInput.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxInput_DragEnter);
             this.textBoxInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxInput_KeyDown);
             // 
             // label1
@@ -93,8 +96,8 @@
             // 
             // textBoxOutput
             // 
-            this.textBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOutput.Location = new System.Drawing.Point(15, 80);
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.Size = new System.Drawing.Size(402, 20);
@@ -111,13 +114,13 @@
             // 
             // trackBarStart
             // 
-            this.trackBarStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarStart.LargeChange = 50;
             this.trackBarStart.Location = new System.Drawing.Point(15, 131);
             this.trackBarStart.Maximum = 1000;
             this.trackBarStart.Name = "trackBarStart";
-            this.trackBarStart.Size = new System.Drawing.Size(327, 40);
+            this.trackBarStart.Size = new System.Drawing.Size(327, 45);
             this.trackBarStart.TabIndex = 9;
             this.trackBarStart.TickFrequency = 50;
             this.trackBarStart.Scroll += new System.EventHandler(this.trackBarStart_Scroll);
@@ -151,13 +154,13 @@
             // 
             // trackBarEnd
             // 
-            this.trackBarEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarEnd.LargeChange = 50;
             this.trackBarEnd.Location = new System.Drawing.Point(15, 190);
             this.trackBarEnd.Maximum = 1000;
             this.trackBarEnd.Name = "trackBarEnd";
-            this.trackBarEnd.Size = new System.Drawing.Size(327, 40);
+            this.trackBarEnd.Size = new System.Drawing.Size(327, 45);
             this.trackBarEnd.TabIndex = 12;
             this.trackBarEnd.TickFrequency = 50;
             this.trackBarEnd.Scroll += new System.EventHandler(this.trackBarEnd_Scroll);
